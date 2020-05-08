@@ -8,7 +8,7 @@ This book intends to show you how to write high-quality code and to teach
 you the concepts and pitfalls of the factory and dependency injection
 container patters from first principles. Through the course of the book,
 we'll evolve a simple "To-Do" list application from a collection of
-spaghettti code to a Symfony application.
+spaghetti code to a Symfony application.
 
 The book takes inspiration from the Symfony documentation 
 "`Create your own PHP Framework

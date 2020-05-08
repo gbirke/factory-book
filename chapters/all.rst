@@ -743,8 +743,9 @@ Benefits of a factory
    what's going on.
 -  Deferred initialization
 
-Part II Dependency Injection Container
---------------------------------------
+****************************************
+Part II - Dependency Injection Container
+****************************************
 
 A good DIC library is a code generator for factories (because factory
 does not need all the config and DSL parsing of the DIC).
@@ -758,17 +759,17 @@ bit. Layer factories replaced by included service configurations.
 * Front Controller is gone, routing is handled by Symfony. 
 * We could keep Router, but have a new Symfony-specific implementation. 
 * Show Symfony controller and presenter implementation: presenter still gets called the same way in
-the use cases, but where previously it sent HTTP headers or output HTML,
-is now used only as storage for Twig context. Thanks to the clean
-architecture, the changed presenter implementation is fully transparent
-for the use case. The same use case could be used in a Symfony Command
-class with a ConsoleRenderer
+  the use cases, but where previously it sent HTTP headers or output HTML,
+  is now used only as storage for Twig context. Thanks to the clean
+  architecture, the changed presenter implementation is fully transparent
+  for the use case. The same use case could be used in a Symfony Command
+  class with a ConsoleRenderer
 
 TODO: Show autowiring
 
 
 Benefits of a Dependency Injection Container
---------------------------------------------
+============================================
 
 -  More concise language
 -  Autowiring for services that don’t implement an interface - less code
@@ -791,7 +792,7 @@ Benefits of a Dependency Injection Container
 -  TODO Check how tests can switch individual services.
 
 Drawbacks of a Dependency Injection Container
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=============================================
 
 - new language syntax to learn 
 - no type safety when using the ``get`` method of the container, but can be checked with tools 
@@ -807,8 +808,9 @@ https://medium.com/easy-pieces-for-programmers/how-to-trick-oo-programmers-into-
 for more info about the benefits of type safety and redundancy of
 factories, as opposed to “magic”, key-based injectors.
 
+********************************************************************
 Part III - Integrating Factories and dependency injection containers
---------------------------------------------------------------------
+********************************************************************
 
 TODO Show examples of the following options, discuss drawbacks and
 benefits
@@ -818,17 +820,6 @@ benefits
 - Add method to make factory implement `PSR-11`_ via reflection. Useful
   for reusing already existing factories. TODO research how to integrate
   PSR-11 containers with Symfony DI. See https://stackoverflow.com/q/61687732/130121
-
-Conclusion
-----------
-
-Factories and DIC are not mutually exclusive and can be integrated -
-pass the framework DIC to the Factory for your use cases, to instantiate
-Adapters implement the use case service interfaces and that are thin
-wrappers around framework services. If you have many classes without
-interface and parameterization, you can use a DIC with autowiring inside
-your factory to keep your factory code shorter, while still presenting a
-type-safe minimal API to the outside.
 
 .. _SOLID: https://en.wikipedia.org/wiki/SOLID
 .. _Factory: https://en.wikipedia.org/wiki/Factory_%28object-oriented_programming%29
@@ -862,3 +853,4 @@ type-safe minimal API to the outside.
 .. _EnterpriseFizzBuzz: https://github.com/EnterpriseQualityCoding/FizzBuzzEnterpriseEdition
 .. _SimplePHPEasyPlus: https://github.com/Herzult/SimplePHPEasyPlus
 .. _PSR-11: https://www.php-fig.org/psr/psr-11/
+

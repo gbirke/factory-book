@@ -10,7 +10,7 @@ The PHP Factory Book
    :maxdepth: 2
    :caption: Contents:
 
-   chapters/intro.rst
+   chapters/intro
    chapters/all
 
 
