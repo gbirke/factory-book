@@ -1,25 +1,4 @@
-— title: Factories and Dependency Injection Containers in PHP subtitle:
-Building classes from the ground up tags: - PHP Design Patterns OOP
-architecture clean architecture factory dependency injection date:
-‘2018-06-14’ categories: - wikimedia todo: - Move this to a separate
-repo (using https://github.com/newren/git-filter-repo/ to remove
-everything but this file), convert md to rst, set up sphinx. Publish as
-github-pages. The resulting site will become a book with several
-chapters: First, a “Tour” from a legacy web app to Symfony (With a
-docker container to run it). Then other, testing and module-related
-topics, e.g. “modularizing factories (while still keeping them
-standalone)”, see
-https://gist.github.com/gbirke/b84c5b1d8ed92b7f77445d53b66adde9 Also
-incorporate https://github.com/gbirke/php-dic-factory - Rework the
-writing style and make it consistent: - Decide on how to address the
-reader - you, we, don’t address at all? - Decide on a style - is this a
-tutorial to follow along? Probably not. More like a “see me code, learn
-from example”. Explain the style. - Target group: novices (to learn
-basics and patterns), advanced users (to leran some architectural basics
-and peek behind the curtain of DIC). - Extract example code for all the
-iterations into a repository with the different versions. Maybe add more
-explanation there. - Move “Factories and testing” to a separate article
-to keep the original intent and flow of this already-long article. — If
+If
 you’re writing `SOLID`_ code (in particular when adhering to the “single
 responsibility” and “dependency inversion” principles), you’ll end up
 with lots of classes, where each class does one thing. You’ll “compose”
@@ -50,7 +29,7 @@ on how we can wire those building blocks together in better ways.
 Part I - Factories
 ******************
 
-TODO revise versions, start with spaghetti code.
+TODO revise versions, start with spaghetti code version as 0.1
 
 Version 0.1, individual files
 =============================
@@ -727,7 +706,13 @@ explosion" problem while still use inheritance to avoid the problem of
 factories being stateful.
 
 .. note:: When you're using traits, all factory methods you override must
-   have the visibility ``protected``, otherwise you can't override them.
+   have the visibility ``protected``, otherwise you can't override them!
+
+Modularizing factories with callables
+-------------------------------------
+
+see https://gist.github.com/gbirke/b84c5b1d8ed92b7f77445d53b66adde9 
+
 
 
 Benefits of a factory
@@ -814,6 +799,9 @@ Part III - Integrating Factories and dependency injection containers
 
 TODO Show examples of the following options, discuss drawbacks and
 benefits
+
+TODO Have a look at https://github.com/gbirke/php-dic-factory, maybe
+incorporate it
 
 - Inject only the factory (bad, service locator pattern)
 - Inject the public factory services,
