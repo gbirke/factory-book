@@ -306,7 +306,7 @@ improve that in the next section.
 If we want to use ``index.php`` with the front controller as the sole
 entry point of our application, then we need a different implementation
 of the ``Router`` class, that no longer compares file names, but uses
-URL parameters instead. Thanks to the clean architeture, this change is
+URL parameters instead. Thanks to the clean architecture, this change is
 totally transparent to the rest of the code, the only place where we
 need to change code is the ``getRouter`` method in the
 ``WebUseCaseFactory`` and ``index.php``:
@@ -318,6 +318,8 @@ need to change code is the ``getRouter`` method in the
 
 Have a look at the example repository if you want to go into more
 detail.
+
+.. index:: callable
 
 Version 0.4 - Improving the front controller
 ============================================
@@ -349,7 +351,7 @@ it’s called ``NaiveMappingFrontController``
 We have removed the branching logic (``if`` or ``case`` statements) for
 individual routes. The remaining “branch” in the front controller is for
 determining the default route in case the URL does not exist in our
-mapping. Let’s see how to set up the mapping in ``index.php``. It has
+mapping. Let's see how to set up the mapping in ``index.php``. It has
 three flaws, can you find them?
 
 .. code:: php
@@ -365,13 +367,18 @@ three flaws, can you find them?
    (new NaiveMappingFrontController( $mappings, $factory->getRouter() ) )
      ->run($_SERVER['REQUEST_URI'])
 
+
+.. index:: delayed instantiation
+
 The first flaw is that the mapping instantiates all use cases and their
 dependencies for every request! That wastes memory and processing time,
 because each use case class gets a new instance of its dependencies. Let
 this example be a warning to you - be aware of this anti-pattern and
 when using a factory, look out if you’re instantiating classes you don’t
 need. One advantage of using factories is **delayed instantiation**,
-creating instances only when needed.
+creating instances only when needed. 
+
+.. index:: callable
 
 The second flaw is inherent in `PHP object callables`_: you have to
 specify the method names as strings, which will break your code when you
