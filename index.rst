@@ -11,7 +11,9 @@ The PHP Factory Book
    :caption: Contents:
 
    chapters/intro
-   chapters/all
+   part1
+   part2.rst
+   part3.rst
 
 
 Indices and tables
