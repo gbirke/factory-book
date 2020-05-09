@@ -43,7 +43,7 @@ from sphinx.highlighting import lexers
 from pygments.lexers.web import PhpLexer
 
 # enable highlighting for PHP code not between <?php ... ?> by default
-lexers['php'] = PhpLexer(startinline=True)
+lexers['php'] = PhpLexer(startinline=True, tabsize=4)
 lexers['php-annotations'] = PhpLexer(startinline=True)
 highlight_language = 'php'
 # Thanks to http://mbless.de/blog/2015/03/02/php-syntax-highlighting-in-sphinx.html
