@@ -1,37 +1,38 @@
-If
-you’re writing `SOLID`_ code (in particular when adhering to the “single
-responsibility” and “dependency inversion” principles), you’ll end up
-with lots of classes, where each class does one thing. You’ll “compose”
-those classes, injecting low-level services into high-level business
-logic code. “Single responsibility” also means that classes that depend
-on services won't instantiate those services with a call to ``new``.
-Instead, there will be a central point in your application where you
-instantiate all the classes and their dependencies. In this article, I
-will have a an in-depth look at two different implementations of such a
-central point - a `Factory`_ and a Dependency Injection Container.
-
-As example classes, I will use components of a “TODO List” application
-that follows the principles of the `clean architecture`_. That means
-that the storage and presentation layer are abstract interfaces that
-have different concrete implementations. Over the course of this
-article, the structure and architecture of the application will become
-more and more refined. In the first part of this text I will use
-implementations that don't rely on any libraries - using HTML with some
-PHP sprinkled in for presentation and a JSON file for storing the data.
-Basically, a minimal, self-written “framework”, that lacks error
-handling but shows the principal architecture of a web application. In
-the second part I will transition this architecture to a Symfony
-application. The focus of this article is not on the concrete
-implementation of the use cases, storage or presentation, the focus is
-on how we can wire those building blocks together in better ways.
-
 ******************
 Part I - Factories
 ******************
 
-TODO revise versions, start with spaghetti code version as 0.1
+Version 0.1, Refactoring my first PHP application
+=================================================
 
-Version 0.1, individual files
+TODO start with spaghetti code version as 0.1. Mention that it's easy to
+write, but may not be easy to read. Mention origins of PHP, this is how
+an application was meant to be written in 1997.
+
+    TODO code example of spaghetti code here
+
+TODO introduce `SOLID`_ code (esp. “single
+responsibility” and “dependency inversion” principles)
+TODO point out increased number of classes, predict that they will
+increase even more., 
+
+    TODO code examples of presenter and persistence here
+
+You’ll “compose”
+those classes, injecting low-level services into high-level business
+logic code. “Single responsibility” also means that classes that depend
+on services won't instantiate those services with a call to ``new``.
+Instead, there will be a central point in your application where you
+instantiate all the classes and their dependencies. This book is an 
+in-depth look at two different implementations of such a
+central point - a `Factory`_ and a Dependency Injection Container.
+
+TODO Introduce `clean architecture`_. 
+that the storage and presentation layer are abstract interfaces that
+have different concrete implementations. Benefit: Software stays easy to
+change. We'll see those benefits in the following chapters
+
+Version 0.2, individual files
 =============================
 
 For the first iteration, we’re looking at an existing code base, that
@@ -139,7 +140,7 @@ You can now see the drawbacks of this application structure:
    change - for the setup of the use cases and the call of the use cases
    action.
 
-Version 0.2 - Using a factory
+Version 0.3 - Using a factory
 =============================
 
 We now have refactored the code and put all the class creation logic
@@ -262,7 +263,7 @@ but let the call order happen in the order it's necessary.
 
 TODO Explain that Circular dependencies will lead to infinite function call loops.
 
-Version 0.3 - Integrate a front controller with the factory
+Version 0.4 - Integrate a front controller with the factory
 ===========================================================
 
 Let's get rid of the different files and put the decision logic - which
@@ -321,7 +322,7 @@ detail.
 
 .. index:: callable
 
-Version 0.4 - Improving the front controller
+Version 0.5 - Improving the front controller
 ============================================
 
 A different implementation of the front controller shows how to follow
@@ -387,7 +388,7 @@ do automated refactoring in the IDE.
 The third flaw breaks the functionality of the code: We forgot to pass
 the input parameters to the use case actions!
 
-Version 0.4.1 - Fixed and Improved Front Controller
+Version 0.5.1 - Fixed and Improved Front Controller
 ===================================================
 
 A better way to set up the mapping is using anonymous functions as

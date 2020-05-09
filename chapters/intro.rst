@@ -17,6 +17,12 @@ a stronger focus on the factory and dependency injection patterns and
 shows how to separate "framework" from "core domain". In the first part,
 we will not use any external libraries.
 
+What is "high-quality code"? At the level of classes, this means adhering
+to the so-called SOLID-Principles. At the level of the application, this
+means using the so-called "Clean Architecture" (also known as "Hexagonal
+Architecture" or "Ports and Adapters"). The book will explain those
+concepts briefly with examples.
+
 
 Who is this book for?
 =====================
