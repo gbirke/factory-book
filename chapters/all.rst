@@ -472,23 +472,26 @@ Usage of the factory in tests
 
 When and how to use the factory in tests? It depends.
 
-In **unit tests**, you shouldn’t use the factory at all, since those
+.. index:: Unit tests
+
+In **unit tests**, you shouldn't use the factory at all, since those
 tests are about the behavior of single *units* (e.g. classes) of your code
 and if those units interact with other parts of your program, you use `test doubles`_ to
 isolate the `system under test`_ from the rest of the system.
 
-TODO: Reference unit test example in example code base
+    TODO: Reference unit test example in example code base
 
-Even **integration tests** don’t need to use the factory to instantiate
+Even **integration tests** don't need to use the factory to instantiate
 the whole object tree. Instead, you can instantiate the systems under
 test that need to interact with each other, but satisfy their other
 dependencies with test doubles.
 
+.. index:: Acceptance tests
 .. _acceptance_tests:
 
 Your **acceptance tests** test application, using the whole
 object tree. You should use the factory for constructing the object tree.
-However, you’ll run into problems. Let’s have a look at an intentionally
+However, you’ll run into problems. Let's have a look at an intentionally
 bad acceptance test that simulates a user adding a new to-to item by
 going to a URL. There are at least two problems in the test. Can you
 spot them?
@@ -535,8 +538,8 @@ In our factory, the ``getTodoRepository`` method is intentionally private.
 Instead of making it public for the sake of testing, we should split it
 instead, into ``UseCaseFactory`` and ``ServiceFactory``.
 
-TODO show rewritten test example using ServiceFactory and storage
-service.
+    TODO show rewritten test example using ServiceFactory and storage
+    service.
 
 To keep our separations of concerns small, classes outside of the ``test``
 namespace must never use ``ServiceFactory`` methods, only test code uses
@@ -549,15 +552,17 @@ the next chapter, :ref:`factory_and_architecture`.
 Factories and architectural concerns
 ====================================
 
+.. index:: Domain Driven Design
+
 TODO Explain DDD bounded contexts, propose splitting factory vertically
 (bounded contexts) and horizontally (view layer, persistence layer,
 logging services, HTTP/web layer, etc).
 
 But how to unify them again? Do we need a ``FactoryFactory``, inching our
-code closer and closer to becoming `EnterpriseFizzBuzz`_ or `other
-atrocities <SimplePHPEasyPlus>`_ ? The answer to this question is in the
-next chapter, :ref:`factory_configuration_and_environments`, when we talk
-about *environments*.
+code closer and closer to becoming `EnterpriseFizzBuzz`_ or
+`SimplePHPEasyPlus`_ ? The answer to this question is in the next chapter,
+:ref:`factory_configuration_and_environments`, when we talk about
+*environments*.
 
 .. _factory_configuration_and_environments:
 
