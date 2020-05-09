@@ -7,12 +7,39 @@ an application was meant to be written in 1997.
 
 .. literalinclude:: ../examples/01_my_first_todo_app/index.php
 
-TODO introduce `SOLID`_ code (esp. “single
-responsibility” and “dependency inversion” principles)
+There is not much error checking on the storage side (what happens if the
+disk is full, the data file has the wrong permissions) and
+error handling in the logic (e.g. preventing adding duplicate TODOs). We
+might add some of that over the course of this book, but the focus of
+this book is how to create well-structured code that's easy to change, not
+secure or fault-tolerant code.
+
+The web application structure is "old school" - the code for
+each "page" of the application is one file. To get from one
+functionality to the other, we use the different file names in links
+(``href`` attributes), as the ``action`` attribute of forms and in HTTP
+redirect headers. This mapping of files ("pages" or "actions") to URLs is
+intuitive for beginners, for example for people who are accustomed to writing HTML files.
+
+
+TODO introduce `SOLID`_ code (esp. "single
+responsibility", "DRY" and "dependency inversion" principles)
+
 TODO point out increased number of classes, predict that they will
 increase even more., 
 
     TODO code examples of presenter and persistence here
+
+TODO Explain why repository and ``FileReader`` are separate: repository is for
+structure of data and access, ``FileReader`` is for filesystem access.
+Separation of concerns, ease of testability, etc.
+
+.. index:: autoloading
+
+.. _autoload:
+
+TODO mention autoloading, but don't go too deep, just explain that we can
+use classes and their code will automatically be loaded.
 
 You’ll “compose”
 those classes, injecting low-level services into high-level business
@@ -30,7 +57,7 @@ benefits in the following chapters.  Another Benefit: The software is
 easier to reason about, because you have clear areas of responsibility:
 Want two switch out the storage? View, controllers and business logic (use
 cases) won't be affected. Want to use command line interface instead of
-rendered HTML?  Wrap the use cases in a command line script and add a
+rendered HTML? Wrap the use cases in a command line script and add a
 console presenter.  Want to add a new feature to your domain? start with
 the business logic, add the data to the storage layer, display the feature
 in the view layer.

@@ -1,17 +1,8 @@
 Version 0.2, adding a router
 ============================
 
-For the first iteration, we’re looking at an existing code base, that
-does not have a central Factory or Dependency Injection Container, but
+After the refactoring, we still doesn't have a central Factory or Dependency Injection Container, but
 where the code follows SOLID principles.
-
-The web application structure is slightly “old school” - the code for
-each “page” of the application is one file. To get from one
-functionality to the other, we use the different file names in links
-(``href`` attributes), as the ``action`` attribute of forms and in HTTP
-redirect headers. In my experience, this mapping of files to URLs is
-intuitive for beginners, for example for people who are transitioning
-from writing HTML files.
 
 In the knowledge that our URL schema might change later, we encapsulate
 the mapping between URLs and functionality in a ``Router`` interface.
@@ -45,6 +36,7 @@ shows the TODO items:
 .. code:: php
 
    // index.php
+   require_once 'autoload.php';
    $usecase = new ShowTodoItems(
      new JsonTodoRepository( new SimpleFileFetcher(), 'todos.json' ),
      new WebTemplatePresenter(
@@ -71,6 +63,7 @@ Let's look at the PHP files for the other routes:
 .. code:: php
 
    // add.php
+   require_once 'autoload.php';
    $usecase = new AddTodoItem(
      new JsonTodoRepository( new SimpleFileFetcher(), 'todos.json' ),
      new RedirectPresenter( 'index', new MultipleFileRouter( [ 'index' => 'index.php' ] ) )
@@ -80,6 +73,7 @@ Let's look at the PHP files for the other routes:
 .. code:: php
 
    // toggle.php
+   require_once 'autoload.php';
    $usecase = new ToggleTodoItem(
      new JsonTodoRepository( new SimpleFileFetcher(), 'todos.json' ),
      new RedirectPresenter( 'index', new MultipleFileRouter( [ 'index' => 'index.php' ] ) )
@@ -93,8 +87,9 @@ Let's look at the PHP files for the other routes:
 
 You can now see the drawbacks of this application structure:
 
--  We have to repeat the setup the of the use cases dependencies,
-   leading to duplicated code.
+-  We have to repeat the setup of :ref:`autoload`\ ing and the use cases dependencies,
+   leading to duplicated code, violating `SOLID`_\ s `Don't repeat
+   yourself (DRY) principle <DRY>`_. 
 -  When the setup changes, e.g. changing the file name of the storage,
    you need to touch all the files.
 -  We create different instances of ``Router``, with different
@@ -108,3 +103,4 @@ You can now see the drawbacks of this application structure:
 
 .. _SOLID: https://en.wikipedia.org/wiki/SOLID
 .. _Single Responsibility Principle: https://en.wikipedia.org/wiki/Single_responsibility_principle
+.. _DRY: https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
