@@ -34,9 +34,9 @@ TODO Explain why repository and ``FileReader`` are separate: repository is for
 structure of data and access, ``FileReader`` is for filesystem access.
 Separation of concerns, ease of testability, etc.
 
-.. index:: autoloading
-
 .. _autoload:
+
+.. index:: autoloading
 
 TODO mention autoloading, but don't go too deep, just explain that we can
 use classes and their code will automatically be loaded.

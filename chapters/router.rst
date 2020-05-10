@@ -87,7 +87,7 @@ Let's look at the PHP files for the other routes:
 
 You can now see the drawbacks of this application structure:
 
--  We have to repeat the setup of :ref:`autoload`\ ing and the use cases dependencies,
+-  We have to repeat the setup of :ref:`autoloading<autoload>` and the use cases dependencies,
    leading to duplicated code, violating `SOLID`_\ s `Don't repeat
    yourself (DRY) principle <DRY>`_. 
 -  When the setup changes, e.g. changing the file name of the storage,
