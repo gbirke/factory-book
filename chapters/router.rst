@@ -38,7 +38,7 @@ shows the TODO items:
    // index.php
    require_once 'autoload.php';
    $usecase = new ShowTodoItems(
-     new JsonTodoRepository( new SimpleFileFetcher(), 'todos.json' ),
+     new JsonTodoRepository( new SimpleFileReader( 'todos.json' ) ),
      new WebTemplatePresenter(
        new PhpTemplate( 'todos' ),
        [
@@ -65,7 +65,7 @@ Let's look at the PHP files for the other routes:
    // add.php
    require_once 'autoload.php';
    $usecase = new AddTodoItem(
-     new JsonTodoRepository( new SimpleFileFetcher(), 'todos.json' ),
+     new JsonTodoRepository( new SimpleFileReader( 'todos.json' ) ),
      new RedirectPresenter( 'index', new MultipleFileRouter( [ 'index' => 'index.php' ] ) )
    );
    $usecase->addTodo( (string) filter_input( INPUT_POST, 'new_todo' ) );
@@ -75,7 +75,7 @@ Let's look at the PHP files for the other routes:
    // toggle.php
    require_once 'autoload.php';
    $usecase = new ToggleTodoItem(
-     new JsonTodoRepository( new SimpleFileFetcher(), 'todos.json' ),
+     new JsonTodoRepository( new SimpleFileReader( 'todos.json' ) ),
      new RedirectPresenter( 'index', new MultipleFileRouter( [ 'index' => 'index.php' ] ) )
    );
    $usecase->toggleTodo( (int) filter_input(

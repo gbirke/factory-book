@@ -10,11 +10,13 @@ Factories are the ideal place to introduce the concept of an
 characteristics of our application, each one with a name like
 "``production``", "``development`` or "``test``". 
 
-For example, in acceptance tests, you need to isolate external resources
-(files, database, networked services) if you don't want to damage the
-data of your production environment. At the moment, the factory is
-opaque and deterministic, we can't decide what implementations of our
-interface it creates or and can't parameterize those implementations.
+For example, in acceptance tests, we want to use different external
+resources (files, database, networked services) in the test environment,
+to avoid damage to our production environment or because it's more
+convenient. At the moment, the factory is opaque and deterministic,
+tailored to created classes for the production environment. We can't
+decide what implementations of our interface it creates or and can't
+parameterize those implementations.
 
 This chapter shows three solutions for making factories more flexible.
 
@@ -29,22 +31,49 @@ example
 * configuring a path for caching
 * giving a database connection string (`DSN`_) to a repository class
 * setting the current locale 
-  
-``TODO Example factory.php and usecasetest.php with JsonTodoRepository
-using a vfsStream url and content.``
+ 
+The following example shows the modified ``PersistenceFactory`` with a
+parameter for the path to the JSON file. In the use case test we use the
+`vfsStream`_ library to provide an in-memory location ("virtual file
+stream") to the ``SimpleFileFetcher``. Our test is now independent from
+the physical file system, but uses all the classes that the production
+environment would use - a true acceptance test. The presenter returned
+from the ``ViewFactory`` still writes directly to the output with HTML
+embedded in PHP, ``printf`` and ``echo``, which is why we have to capture
+the output with `output buffering functions
+<https://www.php.net/manual/en/book.outcontrol.php>`_
+
+.. literalinclude:: ../examples/configuration/src/Infrastructure/PersistenceFactory.php
+    :lines: 6-
+
+.. literalinclude:: ../examples/configuration/test/UseCases/ShowTodosUseCaseTest.php
+    :lines: 10-
 
 When starting out the parameterization, you can add the configuration
 values as parameters for the factory constructor. This ensures that they
 exists and have the correct type. If the number of parameters becomes too
 high, put them into a value object. If you don't want to put your
-configuration in PHP files, this is the point where you would introduce a
-configuration format and a reader class that validates the text file and
-produces the configuration data.
+configuration into value objects in PHP files, this is the point where you
+would introduce a configuration format and a reader class that validates
+the text file and produces the configuration data.
 
-You might write some tests that check if the factory passes the right
-configuration keys to the instance constructors, but in my opinion, you
+Should you write unit tests for the factory that check if it passes the right
+configuration keys to the instance constructors? In my opinion you
 can omit those tests - you test configuration implicitly in your
-acceptance tests, see :ref:`Acceptance tests <acceptance_tests>`
+acceptance tests. If you want to have 100% coverage and your ``@covers``
+annotations for all your tests are strict, then you'll have to write
+unit tests for factories when you introduce configuration for them.
+
+You might argue that the parameter for the storage file breaks the nice
+abstraction the factory provides - what if our persistence implementation
+does not need the path or needs database connection parameters instead?
+That is indeed unfortunate, but still does not violate the `Single
+Responsibility Principle <SRP>`_ or `DRY Principle <DRY>`_ - the purpose of a
+factory is to build defaults - if your defaults change, you'll have to
+change the factory (and of course your configuration), but nothing else.
+At the moment you'd also have to change all the test, but later sections
+in this chapter will show how you can create a test environment factory
+shared by all your classes.
 
 The factory should *not* branch based on the configuration values!
 Factories should be logic-free and have a cyclomatic complexity of 1.
@@ -166,6 +195,9 @@ Modularizing factories with callables
 
 see https://gist.github.com/gbirke/b84c5b1d8ed92b7f77445d53b66adde9 
 
+.. _vfsStream: https://github.com/bovigo/vfsStream
+.. _DRY: https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
+.. _SRP: https://en.wikipedia.org/wiki/Single_responsibility_principle
 .. _DSN: https://www.php.net/manual/en/pdo.construct.php
 .. _developer experience: https://medium.com/@albertcavalcante/what-is-dx-developer-experience-401a0e44a9d9
 .. _deptrac: https://github.com/sensiolabs-de/deptrac
