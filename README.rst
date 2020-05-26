@@ -12,12 +12,14 @@ Building with Docker
 
 The following command will build the book as HTML::
 
-    docker run -it --rm -v $(pwd):/docs sphinxdoc/sphinx make html
+    docker run -it --rm -v $(pwd):/docs -u $(id -u):$(id -g) sphinxdoc/sphinx make html
+
+You need to be in the checked-out directory to run the command.
 
 If you want to run ``:make html`` inside of Vim, set the ``makeprg`` like
 this::
 
-    :set makeprg=docker\ run\ --rm\ -v\ (pwd):/docs\ sphinxdoc/sphinx\ make
+    :set makeprg=docker\ run\ --rm\ -v\ $(pwd):/docs\ sphinxdoc/sphinx\ make
 
 
 
