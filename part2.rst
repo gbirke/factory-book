@@ -27,18 +27,20 @@ Benefits of a Dependency Injection Container
 ============================================
 
 -  More concise language
--  Autowiring for services that don’t implement an interface - less code
+-  Autowiring for services that don't implement an interface - less code
 -  Many Frameworks already use a DIC, because they want to define a
    standardized way to extend the base framework structure -> you don't
-   go “against the grain” of the framework
+   go "against the grain" of the framework
 -  Extension/injection points for configuration, plugins, etc. (See
    symfony DIC features: `decoration`_, `compiler passes`_ and
    decoupling with `tagged services`_). Naming those concepts in the DIC
-   configuration instead of just “doing” them in the PHP code makes
+   configuration instead of just "doing" them in the PHP code makes
    those patterns more explicit.
 -  Easier to set up test environment with DI config for tests and/or
    testcase implementations that have the DIC integrated
--  PSR-11 - shared standard interface
+-  PSR-11 - shared standard interface - not really a benefit because
+   PSR-11 is so generic, it's useless (no definition of actual
+   interoparability).
 -  “Inheritance” - configurations for different environments override
    defaults, but leave base dependency graph intact. –> Research
    mergeability of Symfony container and other solutions.

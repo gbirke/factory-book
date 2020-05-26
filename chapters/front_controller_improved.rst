@@ -28,7 +28,7 @@ it's called ``NaiveMappingFrontController``
    }
 
 We have removed the branching logic (``if`` or ``case`` statements) for
-individual routes. The remaining “branch” in the front controller is for
+individual routes. The remaining "branch" in the front controller is for
 determining the default route in case the URL does not exist in our
 mapping. Let's see how to set up the mapping in ``index.php``. It has
 three flaws, can you find them?
@@ -50,7 +50,7 @@ three flaws, can you find them?
 .. index:: delayed instantiation
 
 The first flaw is that the mapping instantiates all use cases and their
-dependencies for every request! That wastes memory and processing time,
+dependencies for every request. That wastes memory and processing time,
 because each use case class gets a new instance of its dependencies. Let
 this example be a warning to you - be aware of this anti-pattern and
 when using a factory, look out if you’re instantiating classes you don't

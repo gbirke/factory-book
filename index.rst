@@ -11,7 +11,7 @@ The PHP Factory Book
    :caption: Contents:
 
    chapters/intro
-   part1
+   part1.rst
    part2.rst
    part3.rst
 

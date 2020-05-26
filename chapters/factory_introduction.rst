@@ -110,7 +110,7 @@ Let's have a look how the individual files look now:
        [ 'options' => [ 'default' => -1 ] ]
    ) );
 
-They are much shorter now and don’t need local variables any more.
+They are much shorter now and don't need local variables any more.
 
 Factories are declarative code
 ------------------------------

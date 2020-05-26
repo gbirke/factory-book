@@ -26,7 +26,8 @@ TODO introduce `SOLID`_ code (esp. "single
 responsibility", "DRY" and "dependency inversion" principles)
 
 TODO point out increased number of classes, predict that they will
-increase even more., 
+increase even more. Some people consider `the fear of adding
+classes <https://sahandsaba.com/nine-anti-patterns-every-programmer-should-be-aware-of-with-examples.html#fear-of-adding-classes>`_ an anti-pattern.
 
     TODO code examples of presenter and persistence here
 

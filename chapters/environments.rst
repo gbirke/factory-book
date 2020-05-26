@@ -14,7 +14,7 @@ For example, in acceptance tests, we want to use different external
 resources (files, database, networked services) in the test environment,
 to avoid damage to our production environment or because it's more
 convenient. At the moment, the factory is opaque and deterministic,
-tailored to created classes for the production environment. We can't
+tailored to create classes for the production environment. We can't
 decide what implementations of our interface it creates or and can't
 parameterize those implementations.
 
@@ -58,7 +58,7 @@ would introduce a configuration format and a reader class that validates
 the text file and produces the configuration data.
 
 Should you write unit tests for the factory that check if it passes the right
-configuration keys to the instance constructors? In my opinion you
+configuration keys to the instance constructors? In my opinion, you
 can omit those tests - you test configuration implicitly in your
 acceptance tests. If you want to have 100% coverage and your ``@covers``
 annotations for all your tests are strict, then you'll have to write
@@ -71,7 +71,7 @@ That is indeed unfortunate, but still does not violate the `Single
 Responsibility Principle <SRP>`_ or `DRY Principle <DRY>`_ - the purpose of a
 factory is to build defaults - if your defaults change, you'll have to
 change the factory (and of course your configuration), but nothing else.
-At the moment you'd also have to change all the test, but later sections
+At the moment you'd also have to change all the tests, but later sections
 in this chapter will show how you can create a test environment factory
 shared by all your classes.
 
@@ -99,7 +99,7 @@ in acceptance tests that use the factory. For example:
 We implement this by introducing nullable private instance variables in the factory and
 adding setter methods for them. The getter methods check if the instance variable is
 ``null`` and create an instance if needed. In the production environment, we
-will get those instances default, in the test environment we can switch
+will get those instances by default, in the test environment we can switch
 out individual instances.
 
 ``TODO code example factory.php with internal state (templating and respository service
@@ -122,9 +122,12 @@ While setters improve the `developer experience`_, they make the code quality wo
 
 * They introduce mutable state in an otherwise stateless factory.
 * Code that has access to the factory, could potentially switch out
-  services. Developers have to have the discipline to avoid using the
+  services.  Developers have to have the discipline to avoid using the
   setters outside of tests or use architectural pattern checking tools
   like `deptrac`_ or `dephpend`_ to avoid those calls.
+* Some people consider `exposing state for testing bad practice.
+  <https://softwareengineering.stackexchange.com/questions/274937/is-it-bad-practice-to-make-methods-public-solely-for-the-sake-of-unit-testing>`_ 
+  You can decide for yourself, if that reasoning applies to object creation in a factory. 
 * Static analysis tools like `Scrutinizer`_, `Exacat`_, `phpstan`_ or
   `psalm`_, might not recognize the "initialization guarantee" for the
   nullable private instance variables in the getter methods and mark the
@@ -135,7 +138,7 @@ Solution 3: Specialized factories
 
 Chapter :ref:`factory_and_architecture` already talked about splitting the
 big central factory into specialized factories for each layer of the
-application.  But how do the factories fit together? Let's have a look at
+application. But how do the factories fit together? Let's have a look at
 the ``UseCaseFactory`` that now takes the ``PersistenceFactory`` and
 ``ViewFactory``:
 
@@ -149,8 +152,9 @@ deactivated cache and a different file name for our
 ``EnvironmentFactory`` that initializes different implementations of
 ``PersistenceFactory``.  
 
-    TODO Code example EnvironmentFactory with big switch statement,
-    returning differently configured useCaseFactory instances
+    TODO Code example EnvironmentFactory with big switch statement (or
+    chain of responsibility), returning differently configured
+    useCaseFactory instances
 
 For our small application, the ``EnvironmentFactory`` is totally
 `overengineered<https://en.wikipedia.org/wiki/Overengineering>`. As long
