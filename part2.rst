@@ -40,7 +40,7 @@ Benefits of a Dependency Injection Container
    testcase implementations that have the DIC integrated
 -  PSR-11 - shared standard interface - not really a benefit because
    PSR-11 is so generic, it's useless (no definition of actual
-   interoparability).
+   interoperability).
 -  “Inheritance” - configurations for different environments override
    defaults, but leave base dependency graph intact. –> Research
    mergeability of Symfony container and other solutions.
