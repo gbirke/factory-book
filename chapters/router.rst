@@ -1,8 +1,9 @@
 Version 0.2, adding a router
 ============================
 
-After the refactoring, we still doesn't have a central Factory or Dependency Injection Container, but
-where the code follows SOLID principles.
+After the refactoring, we still doesn't have a central Factory or
+Dependency Injection Container, but a code base that follows the SOLID
+principles more closely.
 
 In the knowledge that our URL schema might change later, we encapsulate
 the mapping between URLs and functionality in a ``Router`` interface.
@@ -92,10 +93,6 @@ You can now see the drawbacks of this application structure:
    yourself (DRY) principle <DRY>`_. 
 -  When the setup changes, e.g. changing the file name of the storage,
    you need to touch all the files.
--  We create different instances of ``Router``, with different
-   parameters. While that's memory-efficient in the short term, in the
-   long run we don't have a central point where developers can look up
-   all the ID => URL mappings in one place.
 -  You could say that the files violate `SOLID`_\ s `Single
    Responsibility Principle`_ because each file has two reasons to
    change - for the setup of the use cases and the call of the use cases

@@ -7,12 +7,13 @@ an application was meant to be written in 1997.
 
 .. literalinclude:: ../examples/01_my_first_todo_app/index.php
 
+TODO include add.php
+
 There is not much error checking on the storage side (what happens if the
-disk is full, the data file has the wrong permissions) and
-error handling in the logic (e.g. preventing adding duplicate TODOs). We
-might add some of that over the course of this book, but the focus of
-this book is how to create well-structured code that's easy to change, not
-secure or fault-tolerant code.
+disk is full, the data file has the wrong permissions) and error handling
+in the logic (e.g. preventing adding duplicate TODOs). We might add some
+of that later, but the focus of this book is how to create well-structured
+code that's easy to change, not secure or fault-tolerant code.
 
 The web application structure is "old school" - the code for
 each "page" of the application is one file. To get from one
@@ -42,9 +43,9 @@ Separation of concerns, ease of testability, etc.
 TODO mention autoloading, but don't go too deep, just explain that we can
 use classes and their code will automatically be loaded.
 
-You’ll “compose”
+You’ll "compose"
 those classes, injecting low-level services into high-level business
-logic code. “Single responsibility” also means that classes that depend
+logic code. "Single responsibility" also means that classes that depend
 on services won't instantiate those services with a call to ``new``.
 Instead, there will be a central point in your application where you
 instantiate all the classes and their dependencies. This book is an 
